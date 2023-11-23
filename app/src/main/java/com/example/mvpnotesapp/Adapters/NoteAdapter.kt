@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
@@ -28,17 +29,16 @@ class NoteAdapter(private val context : Context , val listener : NotesClickListe
         return NotesList.size
     }
 
-    fun updateList(newList: List<Note>){
-
+    fun updateList(newList: List<Note>) {
         fulllist.clear()
         fulllist.addAll(newList)
 
         NotesList.clear()
-        NotesList.addAll(fulllist)
+        NotesList.addAll(fulllist.toList())
 
         notifyDataSetChanged()
-
     }
+
 
     fun filterList(search: String?) {
         NotesList.clear()
@@ -67,7 +67,7 @@ class NoteAdapter(private val context : Context , val listener : NotesClickListe
         holder.date.text = currentNote.date
         holder.date.isSelected = true
 
-        holder.notes_layout.setBackgroundColor(holder.itemView.resources.getColor(randomColor() , null))
+        holder.noteColor.setBackgroundColor(holder.itemView.resources.getColor(randomColor() , null))
 
         holder.notes_layout.setOnClickListener{
 
@@ -87,7 +87,8 @@ class NoteAdapter(private val context : Context , val listener : NotesClickListe
     }
 
     inner class NoteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val notes_layout = itemView.findViewById<CardView>(R.id.cardview)
+        val notes_layout = itemView.findViewById<CardView>(R.id.cardView)
+        val noteColor = itemView.findViewById<LinearLayout>(R.id.noteBack)
         val title = itemView.findViewById<TextView>(R.id.title)
         val note = itemView.findViewById<TextView>(R.id.note)
         val date = itemView.findViewById<TextView>(R.id.date)

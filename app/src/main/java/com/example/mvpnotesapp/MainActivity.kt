@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() , NoteAdapter.NotesClickListener , Popu
 
     private fun initUI() {
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.layoutManager = StaggeredGridLayoutManager(2 , LinearLayoutManager.VERTICAL)
+        binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter = NoteAdapter(this,this)
         binding.recyclerView.adapter = adapter
 
@@ -86,7 +86,7 @@ class MainActivity : AppCompatActivity() , NoteAdapter.NotesClickListener , Popu
 
         binding.addNoteBtn.setOnClickListener{
 
-            val intent = Intent(this , AddNote::class.java)
+            val intent = Intent(this , AddNoteActivity::class.java)
             getContent.launch(intent)
 
         }
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() , NoteAdapter.NotesClickListener , Popu
     }
 
     override fun onItemClicked(note: Note) {
-        val intent = Intent(this , AddNote::class.java)
+        val intent = Intent(this , AddNoteActivity::class.java)
         intent.putExtra("current_note",note)
         updateNote.launch(intent)
     }
